@@ -1,7 +1,4 @@
-﻿using EveryMatrixTest.Models;
-using EveryMatrixTest.Services;
-using EveryMatrixTest.SortAlgorithms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace EveryMatrixTest.Tasks
@@ -10,62 +7,20 @@ namespace EveryMatrixTest.Tasks
     {
         public void Do() 
         {
-            var _service = new ArrayService<int>();
-            var _bubbleSort = new BubbleSort();
-            var _arrayModel1 = new ArrayModel<int>();
-            var _arrayModel2 = new ArrayModel<int>();
-
-            for (int i = 0; i < 2; i++)
-            {
-                Console.Write($"{i + 1} array generation \nEnter the range \nFrom: ");
-                var from = int.Parse(Console.ReadLine());
-                Console.Write("To: ");
-                var to = int.Parse(Console.ReadLine());
-                Console.Write("Length: ");
-                var length = int.Parse(Console.ReadLine());
-
-                if (i == 0)
-                {
-                    _arrayModel1.Arr = new int[length];
-                    _service.RandomInputArray(_arrayModel1.Arr, ref length, from, to);
-                    _bubbleSort.BubbleSorting(_arrayModel1.Arr);
-                    Console.WriteLine("\nSorted array: ");
-                    _service.ShowArray(_arrayModel1.Arr);
-                }
-                if (i == 1)
-                {
-                    _arrayModel2.Arr = new int[length];
-                    _service.RandomInputArray(_arrayModel2.Arr, ref length, from, to);
-                    _bubbleSort.BubbleSorting(_arrayModel2.Arr);
-                    Console.WriteLine("\nSorted array: ");
-                    _service.ShowArray(_arrayModel2.Arr);
-                }
-
-                Console.WriteLine();
-                Console.WriteLine("Press 'ENTER'");
-                Console.ReadLine();
-            }
-
-            Console.WriteLine("Array 1");
-            _service.ShowArray(_arrayModel1.Arr);
-
-            Console.WriteLine("\nArray 2");
-            _service.ShowArray(_arrayModel2.Arr);
-
-            Console.WriteLine("\nPress 'ENTER' to merge them");
-            Console.ReadLine();
+            int[] array1 = new int[4] { 3, 5, 9, 10 };
+            int[] array2 = new int[6] { 1, 7, 8, 12, 14, 16 };
 
             var firstIndex = 0;
             var secondIndex = 0;
             var merged = new List<int>();
 
-            for(var i = 0; i <= _arrayModel1.Arr.Length + _arrayModel2.Arr.Length; i++)
+            for(var i = 0; i <= array1.Length + array2.Length; i++)
             {
 
-                if ((_arrayModel1.Arr[firstIndex] >= _arrayModel2.Arr[secondIndex]))
+                if ((array1[firstIndex] >= array2[secondIndex]))
                 {
-                    merged.Add(_arrayModel2.Arr[secondIndex]);
-                    if (secondIndex != _arrayModel2.Arr.Length - 1)
+                    merged.Add(array2[secondIndex]);
+                    if (secondIndex != array2.Length - 1)
                     {
                         secondIndex++;
                         continue;
@@ -73,32 +28,42 @@ namespace EveryMatrixTest.Tasks
                 }
                 else 
                 {
-                    merged.Add(_arrayModel1.Arr[firstIndex]);
-                    if (firstIndex != _arrayModel1.Arr.Length - 1)
+                    merged.Add(array1[firstIndex]);
+                    if (firstIndex != array1.Length - 1)
                     {
                         firstIndex++;
                         continue;
                     }
                 }
-                if (firstIndex == _arrayModel1.Arr.Length - 1)
+                if (firstIndex == array1.Length - 1)
                 {
-                    for (int s = secondIndex; s < _arrayModel2.Arr.Length; s++)
+                    for (int s = secondIndex; s < array2.Length; s++)
                     {
-                        merged.Add(_arrayModel2.Arr[s]);
+                        merged.Add(array2[s]);
                     }
                     break;
                 }
-                if (secondIndex == _arrayModel2.Arr.Length - 1)
+                if (secondIndex == array2.Length - 1)
                 {
-                    for (int f = firstIndex; f < _arrayModel1.Arr.Length; f++)
+                    for (int f = firstIndex; f < array1.Length; f++)
                     {
-                        merged.Add(_arrayModel1.Arr[f]);
+                        merged.Add(array1[f]);
                     }
                     break;
                 }
             }
 
-            Console.WriteLine("RESULT");
+            Console.WriteLine("Array 1: ");
+            for (int i = 0; i < array1.Length; i++)
+            {
+                Console.Write(array1[i] + " ");
+            }
+            Console.WriteLine("\nArray 2: ");
+            for (int i = 0; i < array2.Length; i++)
+            {
+                Console.Write(array2[i] + " ");
+            }
+            Console.WriteLine("\nRESULT");
             foreach (var item in merged)
             {
                 Console.Write($"{item.ToString()} ");

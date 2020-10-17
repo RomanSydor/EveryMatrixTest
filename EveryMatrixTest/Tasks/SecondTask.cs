@@ -1,34 +1,37 @@
-﻿using EveryMatrixTest.Models;
-using EveryMatrixTest.Services;
-using System;
+﻿using System;
 
 namespace EveryMatrixTest.Tasks
 {
     class SecondTask
     {
-        public void Do() 
+        public void Do()
         {
-            var _service = new ArrayService<int>();
-            var _arrayModel = new ArrayModel<int>();
+            int[] array = new int[10] { 1, 2, 3, 4, 5, 5, 6, 7, 8, 9 };
 
-            Console.Write("Length: ");
-            var length = int.Parse(Console.ReadLine());
+            int? duplicate = null;
+            int slow = array[0];
+            int fast = array[array[0]];
 
-            _arrayModel.Arr = new int[length];
-            _service.ManuallyInputArray(_arrayModel.Arr, ref length);
-
-            int? dupl = _service.DuplicateCheck(_arrayModel.Arr);
-            Console.WriteLine();
-            _service.ShowArray(_arrayModel.Arr);
-
-            if (dupl == null)
+            while (fast != slow)
             {
-                Console.WriteLine("\nThere is no duplicates");
+                slow = array[slow];
+                fast = array[array[fast]];
             }
-            else
+
+            slow = 0;
+            while (fast != slow)
             {
-                Console.WriteLine($"\nDuplicate: {dupl}");
+                slow = array[slow];
+                fast = array[fast];
             }
+
+            duplicate = slow;
+            Console.WriteLine("Array: ");
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(array[i] + " ");
+            }
+            Console.WriteLine($"\nDuplicate: {duplicate}");
         }
     }
 }

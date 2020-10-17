@@ -12,30 +12,7 @@ namespace EveryMatrixTest.Services
             element2 = swap;
         }
 
-        public int? DuplicateCheck(int[] array) 
-        {
-            if (array.Length < 1)
-            {
-                return null;
-            }
-            int slow = array[0];
-            int fast = array[array[0]];
-
-            while (fast != slow)
-            {
-                slow = array[slow];
-                fast = array[array[fast]];
-            }
-
-            slow = 0;
-            while (fast != slow)
-            {
-                slow = array[slow];
-                fast = array[fast];
-            }
-            return slow;
-        }
-
+       
         public void ShowArray(T[] array)
         {
             for (var i = 0; i < array.Length; i++)
