@@ -2,7 +2,7 @@
 using EveryMatrixTest.Services;
 using EveryMatrixTest.SortAlgorithms;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace EveryMatrixTest.Tasks
 {
@@ -55,12 +55,54 @@ namespace EveryMatrixTest.Tasks
             Console.WriteLine("\nPress 'ENTER' to merge them");
             Console.ReadLine();
 
-            int[] merged = _arrayModel1.Arr.Concat(_arrayModel2.Arr).ToArray();
+            var firstIndex = 0;
+            var secondIndex = 0;
+            var merged = new List<int>();
 
-            _bubbleSort.BubbleSorting(merged);
+            for(var i = 0; i <= _arrayModel1.Arr.Length + _arrayModel2.Arr.Length; i++)
+            {
+
+                if ((_arrayModel1.Arr[firstIndex] >= _arrayModel2.Arr[secondIndex]))
+                {
+                    merged.Add(_arrayModel2.Arr[secondIndex]);
+                    if (secondIndex != _arrayModel2.Arr.Length - 1)
+                    {
+                        secondIndex++;
+                        continue;
+                    }
+                }
+                else 
+                {
+                    merged.Add(_arrayModel1.Arr[firstIndex]);
+                    if (firstIndex != _arrayModel1.Arr.Length - 1)
+                    {
+                        firstIndex++;
+                        continue;
+                    }
+                }
+                if (firstIndex == _arrayModel1.Arr.Length - 1)
+                {
+                    for (int s = secondIndex; s < _arrayModel2.Arr.Length; s++)
+                    {
+                        merged.Add(_arrayModel2.Arr[s]);
+                    }
+                    break;
+                }
+                if (secondIndex == _arrayModel2.Arr.Length - 1)
+                {
+                    for (int f = firstIndex; f < _arrayModel1.Arr.Length; f++)
+                    {
+                        merged.Add(_arrayModel1.Arr[f]);
+                    }
+                    break;
+                }
+            }
 
             Console.WriteLine("RESULT");
-            _service.ShowArray(merged);
+            foreach (var item in merged)
+            {
+                Console.Write($"{item.ToString()} ");
+            }
         }
     }
 }

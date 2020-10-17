@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace EveryMatrixTest.Services
 {
@@ -13,28 +12,28 @@ namespace EveryMatrixTest.Services
             element2 = swap;
         }
 
-        public int? DuplicateCheck(int[] array)
+        public int? DuplicateCheck(int[] array) 
         {
-            int? duplacate = null;
-            bool isFinded = false;
-            for (int i = 0; i < array.Length; i++)
+            if (array.Length < 1)
             {
-                int temp = array[i];
-                for (int j = 0; j < array.Length; j++)
-                {
-                    if (temp == array[j] && i != j)
-                    {
-                        duplacate = temp;
-                        isFinded = true;
-                        break;
-                    }
-                }
-                if (isFinded)
-                {
-                    break;
-                }
+                return null;
             }
-            return duplacate;
+            int slow = array[0];
+            int fast = array[array[0]];
+
+            while (fast != slow)
+            {
+                slow = array[slow];
+                fast = array[array[fast]];
+            }
+
+            slow = 0;
+            while (fast != slow)
+            {
+                slow = array[slow];
+                fast = array[fast];
+            }
+            return slow;
         }
 
         public void ShowArray(T[] array)
@@ -77,33 +76,6 @@ namespace EveryMatrixTest.Services
                     }
                 } while (check);
             }
-        }
-
-        public string[] TimeInput(string[] array, int length) 
-        {
-            for (int i = 0; i < length; i++)
-            {
-                array[i] = i.ToString();
-
-                //if (i < 10)
-                //{
-                //    array[i] += "0";
-                //    var ch = array[i].ToCharArray();
-                //    Array.Reverse(ch);
-                //    array[i] = ch.ToString();
-                //}
-
-                if (i < 10)
-                {
-                    string zero = "0";
-                    array[i] = (zero + i).ToString();
-                }
-                else
-                {
-                    array[i] = i.ToString();
-                }
-            }
-            return array;
         }
     }
 }
